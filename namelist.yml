@@ -1,0 +1,94 @@
+---
+physics:
+    mp_physics: # microphysics option
+        - {id:   0, name: "no microphysics"}
+        - {id:   1, name: "Kessler scheme"}
+        - {id:   2, name: "Lin et al. scheme"}
+        - {id:   3, name: "WSM 3-class simple ice scheme"}
+        - {id:   4, name: "WSM 5-class scheme"}
+        - {id:   5, name: "Ferrier (new Eta) microphysics"}
+        - {id:   6, name: "WSM 6-class graupel scheme"}
+        - {id:   8, name: "Thompson 7-class scheme (also predict ice number concentraion)"}
+        - {id:  98, name: "NCEP 3-class simple ice scheme (to be removed)"}
+        - {id:  99, name: "NCEP 5-class scheme (to be removed)"}
+    ra_lw_physics: # longwave radiation option
+        - {id:   0, name: "no longwave radiation"}
+        - {id:   1, name: "rrtm scheme"}
+        - {id:  99, name: "GFDL (Eta) longwave (semi-supported)"}
+    ra_sw_physics: # shortwave radiation option
+        - {id:   0, name: "no shortwave radiation"}
+        - {id:   1, name: "Dudhia scheme"}
+        - {id:   2, name: "Goddard short wave"}
+        - {id:  99, name: "GFDL (Eta) longwave (semi-supported)"}
+    sf_sfclay_physics: # surface-layer option (old bl_sfclay_physics option)
+        - {id:   0, name: "no surface-layer"}
+        - {id:   1, name: "Monin-Obukhov scheme"}
+        - {id:   2, name: "Monin-Obukhov (Janjic Eta) scheme"}
+    sf_surface_physics: # land-surface option (old bl_surface_physics option)
+        - {id:   0, name: "no surface temp prediction"}
+        - {id:   1, name: "thermal diffusion scheme"}
+        - {id:   2, name: "Noah land-surface model"}
+        - {id:   3, name: "RUC land-surface model"}
+    bl_pbl_physics: # boundary-layer option
+        - {id:   0, name: "no boundary-layer"}
+        - {id:   1, name: "YSU scheme"}
+        - {id:   2, name: "Mellor-Yamada-Janjic (Eta) TKE scheme"}
+        - {id:  99, name: "MRF scheme (to be removed)"}
+    cu_physics: # cumulus option
+        - {id:   0, name: "no cumulus"}
+        - {id:   1, name: "Kain-Fritsch (new Eta) scheme"}
+        - {id:   2, name: "Betts-Miller-Janjic scheme"}
+        - {id:   3, name: "Grell-Devenyi ensemble scheme"}
+        - {id:  99, name: "previous Kain-Fritsch scheme"}
+    num_soil_layers: # number of soil layers (land surface model)
+        - {id:   5, name: "thermal diffusion scheme"}
+        - {id:   4, name: "Noah landsurface model"}
+        - {id:   6, name: "RUC landsurface model"}
+
+# options for use with the Noah-MP Land Surface Model        
+noah_mp:
+    dveg: # Noah-MP Dynamic Vegetation option:
+        - {id:   1, name: "Off (LAI from table; FVEG = shdfac)"}
+        - {id:   2, name: "On"}
+        - {id:   3, name: "Off (LAI from table; FVEG calculated)"}
+        - {id:   4, name: "Off (LAI from table; FVEG = maximum veg. fraction)"}
+    opt_crs: # Noah-MP Stomatal Resistance option:
+        - {id:   1, name: "Ball-Berry"}
+        - {id:   2, name: "Jarvis"}
+    opt_sfc: # Noah-MP surface layer drag coefficient calculation
+        - {id:   1, name: "Monin-Obukhov"}
+        - {id:   2, name: "original Noah (Chen97)"}
+        - {id:   3, name: "MYJ consistent"}
+        - {id:   4, name: "YSU consistent"}
+    opt_btr: # Noah-MP Soil Moisture Factor for Stomatal Resistance
+        - {id:   1, name: "Noah"}
+        - {id:   2, name: "CLM"}
+        - {id:   3, name: "SSiB"}
+    opt_run: # Noah-MP Runoff and Groundwater option
+        - {id:   1, name: "TOPMODEL with groundwater"}
+        - {id:   2, name: "TOPMODEL with equilibrium water table"}
+        - {id:   3, name: "original surface and subsurface runoff (free drainage)"}
+        - {id:   4, name: "BATS surface and subsurface runoff (free drainage)"}
+    opt_frz: # Noah-MP Supercooled Liquid Water option
+        - {id:   1, name: "No iteration"}
+        - {id:   2, name: "Koren's iteration"}
+    opt_inf: # Noah-MP Soil Permeability option
+        - {id:   1, name: "Linear effects, more permeable"}
+        - {id:   2, name: "Non-linear effects, less permeable"}
+    opt_rad: # Noah-MP Radiative Transfer option
+        - {id:   1, name: "Modified two-stream"}
+        - {id:   2, name: "Two-stream applied to grid-cell"}
+        - {id:   3, name: "Two-stream applied to vegetated fraction"}
+    opt_alb: # Noah-MP Ground Surface Albedo option
+        - {id:   1, name: "BATS"}
+        - {id:   2, name: "CLASS"}
+    opt_snf: # Noah-MP Precipitation Partitioning between snow and rain
+        - {id:   1, name: "Jordan (1991)"}
+        - {id:   2, name: "BATS:  Snow when SFCTMP < TFRZ+2.2"}
+        - {id:   3, name: "Snow when SFCTMP < TFRZ"}
+    opt_tbot: # Noah-MP Soil Temperature Lower Boundary Condition
+        - {id:   1, name: "Zero heat flux"}
+        - {id:   2, name: "TBOT at 8 m from input file"}
+    opt_stc: # Noah-MP Snow/Soil temperature time scheme
+        - {id:   1, name: "semi-implicit"}
+        - {id:   2, name: "full-implicit"}

@@ -92,3 +92,41 @@ noah_mp:
     opt_stc: # Noah-MP Snow/Soil temperature time scheme
         - {id:   1, name: "semi-implicit"}
         - {id:   2, name: "full-implicit"}
+
+
+fdda:
+    grid_fdda:
+        - {id:   0, name: "nudging off"}
+        - {id:   1, name: "grid-nudging fdda"}
+        - {id:   2, name: "spectral nudging"}
+    io_form_gfdda: # analysis data io format 
+        - {id:   2, name: "netCDF"}
+    if_no_pbl_nudging_uv:
+        - {id:   0, name: "nudging of u and v in the pbl"}
+        - {id:   1, name: "no nudging of u and v in the pbl"}
+    if_no_pbl_nudging_t:
+        - {id:   0, name: "nudging of temp in the pbl"}
+        - {id:   1, name: "no nudging of temp in the pbl"}
+    if_no_pbl_nudging_q:
+        - {id:   0, name: "nudging of qvapor in the pbl"}
+        - {id:   1, name: "no nudging of qvapor in the pbl"}
+    if_zfac_uv:
+        - {id:   0, name: "nudge u and v in all layers"}
+        - {id:   1, name: "limit u and v nudging to levels above k_zfac_uv"}
+    if_zfac_t:
+        - {id:   0, name: "nudge temp in all layers"}
+        - {id:   1, name: "limit temp nudging to levels above k_zfac_t"}
+    if_zfac_q:
+        - {id:   0, name: "nudge qvapor in all layers"}
+        - {id:   1, name: "limit qvapor nudging to levels above k_zfac_q"}
+    if_ramping:
+        - {id:   0, name: "nudging ends as a step function"}
+        - {id:   1, name: "ramping nudging down at end of period"}
+    grid_sfdda:
+        description: "surface fdda switch"
+        - {id:   0, name: "off"}
+        - {id:   1, name: "on"}
+    io_form_sgfdda:
+        description: "sfc analysis data io format"
+        - {id:   2, name: "netCDF"}
+    # TODO: the following are for spectral nudging:

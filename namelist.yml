@@ -1,49 +1,98 @@
 ---
 physics:
-    mp_physics: # microphysics option
-        - {id:   0, name: "no microphysics"}
-        - {id:   1, name: "Kessler scheme"}
-        - {id:   2, name: "Lin et al. scheme"}
-        - {id:   3, name: "WSM 3-class simple ice scheme"}
-        - {id:   4, name: "WSM 5-class scheme"}
-        - {id:   5, name: "Ferrier (new Eta) microphysics"}
-        - {id:   6, name: "WSM 6-class graupel scheme"}
-        - {id:   8, name: "Thompson 7-class scheme (also predict ice number concentraion)"}
-        - {id:  98, name: "NCEP 3-class simple ice scheme (to be removed)"}
-        - {id:  99, name: "NCEP 5-class scheme (to be removed)"}
-    ra_lw_physics: # longwave radiation option
-        - {id:   0, name: "no longwave radiation"}
-        - {id:   1, name: "rrtm scheme"}
-        - {id:  99, name: "GFDL (Eta) longwave (semi-supported)"}
-    ra_sw_physics: # shortwave radiation option
-        - {id:   0, name: "no shortwave radiation"}
-        - {id:   1, name: "Dudhia scheme"}
-        - {id:   2, name: "Goddard short wave"}
-        - {id:  99, name: "GFDL (Eta) longwave (semi-supported)"}
-    sf_sfclay_physics: # surface-layer option (old bl_sfclay_physics option)
-        - {id:   0, name: "no surface-layer"}
-        - {id:   1, name: "Monin-Obukhov scheme"}
-        - {id:   2, name: "Monin-Obukhov (Janjic Eta) scheme"}
-    sf_surface_physics: # land-surface option (old bl_surface_physics option)
-        - {id:   0, name: "no surface temp prediction"}
-        - {id:   1, name: "thermal diffusion scheme"}
-        - {id:   2, name: "Noah land-surface model"}
-        - {id:   3, name: "RUC land-surface model"}
-    bl_pbl_physics: # boundary-layer option
-        - {id:   0, name: "no boundary-layer"}
-        - {id:   1, name: "YSU scheme"}
-        - {id:   2, name: "Mellor-Yamada-Janjic (Eta) TKE scheme"}
-        - {id:  99, name: "MRF scheme (to be removed)"}
-    cu_physics: # cumulus option
-        - {id:   0, name: "no cumulus"}
-        - {id:   1, name: "Kain-Fritsch (new Eta) scheme"}
-        - {id:   2, name: "Betts-Miller-Janjic scheme"}
-        - {id:   3, name: "Grell-Devenyi ensemble scheme"}
-        - {id:  99, name: "previous Kain-Fritsch scheme"}
-    num_soil_layers: # number of soil layers (land surface model)
-        - {id:   5, name: "thermal diffusion scheme"}
-        - {id:   4, name: "Noah landsurface model"}
-        - {id:   6, name: "RUC landsurface model"}
+    # chemistry option - use WRF-Chem
+    chem_opt:
+        description: "chemistry option - use WRF-Chem"
+        max_dom: false
+        type: boolean
+    # microphysics option
+    mp_physics:
+        description: "microphysics option"
+        max_dom: true
+        type: int
+        values:
+            - {id:   0, name: "no microphysics"}
+            - {id:   1, name: "Kessler scheme"}
+            - {id:   2, name: "Lin et al. scheme"}
+            - {id:   3, name: "WSM 3-class simple ice scheme"}
+            - {id:   4, name: "WSM 5-class scheme"}
+            - {id:   5, name: "Ferrier (new Eta) microphysics"}
+            - {id:   6, name: "WSM 6-class graupel scheme"}
+            - {id:   8, name: "Thompson 7-class scheme (also predict ice number concentraion)"}
+            - {id:  98, name: "NCEP 3-class simple ice scheme (to be removed)"}
+            - {id:  99, name: "NCEP 5-class scheme (to be removed)"}
+    mp_zero_out:
+        description: "TODO"
+        type: int
+        values:
+            - {id:   0, name: "no action taken, no adjustment to any moist field"}
+            - {id:   1, name: "except for Qv, all other moist arrays are set to zero if they fall below a critical value"}
+            - {id:   2, name: "Qv is .GE. 0, all other moist arrays are set to zero if they fall below a critical value"}
+    mp_zero_out_thresh:
+        description: "critical value for moist array threshold, below which moist arrays (except for Qv) are set to zero (kg/kg)"
+        type: float
+        example: 1.e-8
+    # longwave radiation option
+    ra_lw_physics:
+        description: "longwave radiation option"
+        type: int
+        values:
+            - {id:   0, name: "no longwave radiation"}
+            - {id:   1, name: "rrtm scheme"}
+            - {id:  99, name: "GFDL (Eta) longwave (semi-supported)"}
+    # shortwave radiation option
+    ra_sw_physics:
+        description: "shortwave radiation option"
+        type: int
+        values:
+            - {id:   0, name: "no shortwave radiation"}
+            - {id:   1, name: "Dudhia scheme"}
+            - {id:   2, name: "Goddard short wave"}
+            - {id:  99, name: "GFDL (Eta) longwave (semi-supported)"}
+    # surface-layer option (old bl_sfclay_physics option)
+    sf_sfclay_physics:
+        description: "surface-layer option (old bl_sfclay_physics option)"
+        type: int
+        values:
+            - {id:   0, name: "no surface-layer"}
+            - {id:   1, name: "Monin-Obukhov scheme"}
+            - {id:   2, name: "Monin-Obukhov (Janjic Eta) scheme"}
+    # land-surface option (old bl_surface_physics option)
+    sf_surface_physics:
+        description: "land-surface option (old bl_surface_physics option)"
+        type: int
+        values:
+            - {id:   0, name: "no surface temp prediction"}
+            - {id:   1, name: "thermal diffusion scheme"}
+            - {id:   2, name: "Noah land-surface model"}
+            - {id:   3, name: "RUC land-surface model"}
+    # boundary-layer option
+    bl_pbl_physics:
+        description: "boundary-layer option"
+        type: int
+        values:
+            - {id:   0, name: "no boundary-layer"}
+            - {id:   1, name: "YSU scheme"}
+            - {id:   2, name: "Mellor-Yamada-Janjic (Eta) TKE scheme"}
+            - {id:  99, name: "MRF scheme (to be removed)"}
+    # cumulus option
+    cu_physics:
+        description: "cumulus option"
+        type: int
+        values:
+            - {id:   0, name: "no cumulus"}
+            - {id:   1, name: "Kain-Fritsch (new Eta) scheme"}
+            - {id:   2, name: "Betts-Miller-Janjic scheme"}
+            - {id:   3, name: "Grell-Devenyi ensemble scheme"}
+            - {id:  99, name: "previous Kain-Fritsch scheme"}
+    # number of soil layers (land surface model)
+    num_soil_layers:
+        description: "number of soil layers (land surface model)"
+        type: int
+        values:
+            - {id:   5, name: "thermal diffusion scheme"}
+            - {id:   4, name: "Noah landsurface model"}
+            - {id:   6, name: "RUC landsurface model"}
 
 # options for use with the Noah-MP Land Surface Model        
 noah_mp:
@@ -124,9 +173,11 @@ fdda:
         - {id:   1, name: "ramping nudging down at end of period"}
     grid_sfdda:
         description: "surface fdda switch"
-        - {id:   0, name: "off"}
-        - {id:   1, name: "on"}
+        values:
+            - {id:   0, name: "off"}
+            - {id:   1, name: "on"}
     io_form_sgfdda:
         description: "sfc analysis data io format"
-        - {id:   2, name: "netCDF"}
-    # TODO: the following are for spectral nudging:
+        values:
+           - {id:   2, name: "netCDF"}
+    # TODO: the following are for spectral nudging::when

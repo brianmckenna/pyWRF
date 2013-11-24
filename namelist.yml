@@ -1,4 +1,298 @@
 ---
+time_control:
+    notes:
+        - "if simulation is more than 1 day, may use both run_days and run_hours or just run_hours. e.g. if the total run length is 36 hrs, you may set run_days = 1, and run_hours = 12, or run_days = 0, and run_hours = 36"
+        - "one may use either run_days/run_hours etc. or end_year/month/day/hour etc. to control the length of model integration. But run_days/run_hours takes precedence over the end times. Program real.exe uses start and end times only."
+        - "start time (start_*) is used to name the first wrfout file, and controls the start time for nest domains, and the time to restart"
+        - "end time (end_*) controls when the nest domain integrations end"
+        - "all start (start_*) and end (end_*) times are used by real.exe"
+    run_days:
+        description: "run time in days"
+        max_dom: false
+        type: int
+        example: 1
+    run_hours:
+        description: "run time in hours"
+        max_dom: false
+        type: int
+        example: 0
+    run_minutes:
+        description: "run time in minutes"
+        max_dom: false
+        type: int
+        example: 0
+    run_seconds:
+        description: "run time in seconds"
+        max_dom: false
+        type: int
+        example: 0
+    start_year:
+        description: "four digit year of starting time"
+        max_dom: true
+        type: int
+        example: 2001
+    start_month:
+        description: "two digit month of starting time"
+        max_dom: true
+        type: int
+        example: 06
+    start_day:
+        description: "two digit day of starting time"
+        max_dom: true
+        type: int
+        example: 11
+    start_hour:
+        description: "two digit hour of starting time"
+        max_dom: true
+        type: int
+        example: 12
+    start_minute:
+        description: "two digit minute of starting time"
+        max_dom: true
+        type: int
+        example: 00
+    start_second:
+        description: "two digit second of starting time"
+        max_dom: true
+        type: int
+        example: 00
+    tstart:
+        description: "starting hour of the forecast (NMM only)"
+        nmm_only: true
+        max_dom: true
+        type: int
+        example: 00
+    end_year:
+        description: "four digit year of ending time"
+        max_dom: true
+        type: int
+        example: 2001
+    end_month:
+        description: "two digit month of ending time"
+        max_dom: true
+        type: int
+        example: 06
+    end_day:
+        description: "two digit day of ending time"
+        max_dom: true
+        type: int
+        example: 12
+    end_hour:
+        description: "two digit hour of ending time"
+        max_dom: true
+        type: int
+        example: 12
+    end_minute:
+        description: "two digit minute of ending time"
+        max_dom: true
+        type: int
+        example: 00
+    end_second:
+        description: "two digit second of ending time"
+        max_dom: true
+        type: int
+        example: 00
+    interval_seconds:
+        description: "time interval between incoming real data, which will be the interval between the lateral boundary condition file"
+        max_dom: false
+        type: int
+        example: 10800
+    input_from_file:
+        description: "whether nested run will have input files for domains other than 1"
+        max_dom: true
+        type: boolean
+        example: T
+    fine_input_stream:
+        description: "field selection from nest input for its initialization"
+        max_dom: true
+        type: int
+        values:
+            - {id: 0, name: "all fields are used"}
+            - {id: 2, name: "only static and time-varying, masked land surface fields are used"}
+        notes:
+            - "In V3.2, this requires the use of io_form_auxinput2"
+    history_interval:
+        description: "history output file interval in minutes"
+        max_dom: true
+        type: int
+        example: 60
+    frames_per_outfile:
+        description: "number of output times per history output file, used to split output into multiple files into smaller pieces"
+        max_dom: true
+        type: int
+        example: 1
+    restart:
+        description: "whether this run is a restart run"
+        max_dom: false
+        type: boolean
+        example: F
+    cycling:
+        description: "whether this run is a cycling run, if so, initializes look-up table for Thompson schemes only"
+        max_dom: false
+        type: boolean
+        example: F
+    restart_interval:
+        description: "restart output file interval in minutes"
+        max_dom: false
+        type: int
+        example: 1440
+    reset_simulation_start:
+        description: "whether to overwrite simulation_start_date with forecast start time"
+        max_dom: false # TODO check this (example README.namelist has comma)
+        type: boolean
+        example: F
+    io_form_history:
+        description: "history io format"
+        max_dom: false
+        type: int
+        values:
+            - {id:   2, name: "netCDF"}
+    io_form_restart:
+        description: "restart io format"
+        max_dom: false
+        type: int
+        values:
+            - {id:   2, name: "netCDF"}
+    io_form_input:
+        description: "input io format"
+        max_dom: false
+        type: int
+        values:
+            - {id:   2, name: "netCDF"}
+    io_form_boundary:
+        description: "boundary io format"
+        max_dom: false
+        type: int
+        values:
+            - {id:   2, name: "netCDF"}
+            - {id:   4, name: "PHD5"}
+            - {id:   5, name: "GRIB1"}
+            - {id:  10, name: "GRIB2"}
+            - {id:  11, name: "pnetCDF"}
+    frames_per_emissfile:
+        description: "number of times in each chemistry emission file"
+        max_dom: false
+        type: int
+        example: 12
+    io_style_emiss:
+        description: "style to use for the chemistry emission files"
+        max_dom: false
+        type: int
+        values:
+            - {id:   0, name: "Do not read emissions from files"}
+            - {id:   1, name: "Cycle between two 12 hour files (set frames_per_emissfile=12)"}
+            - {id:   2, name: "Dated files with length set by frames_per_emissfile"}
+    debug_level:
+        description: "50,100,200,300 values give increasing prints"
+        max_dom: false
+        type: int
+        example: 0
+    diag_print:
+        description: "print out time series of model diagnostics"
+        max_dom: false
+        type: int
+        values:
+            - {id:   0, name: "no print"}
+            - {id:   1, name: "domain averaged 3-hourly hydrostatic surface pressure tendency (Dpsfc/Dt), and dry-hydrostatic column pressure tendency (Dmu/Dt) will appear in stdout file"}
+            - {id:   2, name: "in addition to those above, domain averaged rainfall, surface evaporation, and sensible and latent heat fluxes will be output"}
+    all_ic_times:
+        description: "whether to write out wrfinput for all processing times"
+        max_dom: false
+        type: boolean
+        example: F
+    adjust_output_times:
+        description: "adjust output times to the nearest hour"
+        max_dom: false
+        type: boolean
+        example: F
+    override_restart_timers:
+        description: "whether to change the alarms from what is previously set"
+        max_dom: false
+        type: boolean
+        example: F
+    write_hist_at_0h_rst:
+        description: "whether to output history file at the start of restart run"
+        max_dom: false
+        type: boolean
+        example: F
+    auxinput1_inname:
+        description: "choose between SI and WPS input to real for EM core"
+        max_dom: false
+        type: string
+        values:
+            - {id: "met_em.d<domain>.<date>", name: "Input to EM core real from WPS (default since 3.0)"}
+            - {id: "wrf_real_input_em.d<domain>.<date>", name: "Input to EM core real from SI"}
+            - {id: "met_nm.d<domain>.<date>", name: "Input to NM core real from WPS"}
+            - {id: "wrf_real_input_nm.d<domain>.<date>", name: "Input to NM core real from SI"}
+    auxhist2_outname:
+        description: "file name for extra output; if not specified, auxhist2_d<domain>_<date> will be used"
+        max_dom: false # TODO check this
+        type: string
+        example: "rainfall"
+        notes:
+            - "writing variables in output other than the history file requires Registry.EM file change"
+    auxhist2_interval:
+        description: "auxhist2 interval in minutes"
+        max_dom: true
+        type: int
+        example: 10
+    io_form_auxhist2:
+        description: "auxhist2 io format"
+        max_dom: false
+        type: int
+        values:
+           - {id:   2, name: "netCDF"}
+    frames_per_auxhist2:
+        description: "number of output times in auxhist2"
+        max_dom: false
+        type: int
+        example: 1000
+    # SST updating (used only with sst_update=1):
+#    auxinput4_inname                    = "wrflowinp_d<domain>" 
+#    auxinput4_interval                  = 360      ; minutes generally matches time given by interval_seconds
+#    io_form_auxinput4                   = 2        ; IO format, required in V3.2
+#    nwp_diagnostics                     = 1        ; adds 7 history-interval max diagnostic fields
+    # additional regional climate surface fields
+#    output_diagnostics                  = 1        ; adds 36 surface diagnostic arrays (max/min/mean/std)
+#    auxhist3_outname                    = 'wrfxtrm_d<domain>_<date>' ; file name for added diagnostics
+#    io_form_auxhist3                    = 2        ; netcdf
+#    auxhist3_interval                   = 1440     ; minutes between outputs (1440 gives daily max/min)
+#    frames_per_auxhist3                 = 1        ; output times per file
+
+    # options for observation nudging
+#    auxinput11_interval                 = 10       ; interval in minutes for observation data. It should be set as or more frequently as obs_ionf (with unit of coarse domain time step).
+#    auxinput11_end_h                    = 6        ; end of observation time in hours.
+    # options for run-time I/O
+    iofields_filename:
+        description: "run-time I/O fields"
+        max_dom: true
+        type: string
+        example: "my_iofields_list.txt"
+        notes:
+            - "example format: +:h:21:rainc, rainnc, rthcuten"
+    ignore_iofields_warning:
+        description: "what to do when encountering an error in the user-specified files"
+        max_dom: false
+        type: boolean
+        values:
+            - {id: true, name: "ignore errors in iofields_filename file"}
+            - {id: false, name: "abort when encountering an error in iofields_filename file"}
+    # additional settings when running WRFVAR:
+#    write_input                         = t,       ; write input-formatted data as output
+#    inputout_interval                   = 180,     ; interval in minutes when writing input-formatted data 
+#    input_outname                       = 'wrfinput_d<domain>_<date>' ; you may change the output file name
+#    inputout_begin_y                    = 0
+#    inputout_begin_mo                   = 0
+#    inputout_begin_d                    = 0
+#    inputout_begin_h                    = 3
+#    inputout_begin_m                    = 0
+#    inputout_begin_s                    = 0
+#    inputout_end_y                      = 0
+#    inputout_end_mo                     = 0
+#    inputout_end_d                      = 0
+#    inputout_end_h                      = 12
+#    inputout_end_m                      = 0
+#    inputout_end_s                      = 0        ; the above shows that the input-formatted data are output starting from hour 3 to hour 12 in 180 min interval.
 physics:
     # chemistry option - use WRF-Chem
     chem_opt:

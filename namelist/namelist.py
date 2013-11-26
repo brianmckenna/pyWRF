@@ -1,3 +1,4 @@
+import logging as log
 import yaml
 import types
 
@@ -27,6 +28,7 @@ example = {
         'interval_seconds': 10800,
 
         'input_from_file': False,
+#        'input_from_file': 1, # TypeError example
 #        'fine_input_stream': 'int',
 
         'history_interval': 60,
@@ -103,19 +105,20 @@ def schema(ymlfilename):
         #print "\n",
     return namelist
 
-n = schema("namelist.yml")
-print n
-
 def check(n):
     ns = schema("namelist.yml")
     # sections
     for s,section in n.iteritems():
-        print s
         for k,v in section.iteritems():
-            #print '\t%s\t%s\t%s\t%s' % (k,v,ns[s][k],type(v))
-            print '\t%s\t%s' % (k,v)
+            log.debug('\t%s\t%s' % (k,v))
             # check type
-            assert isinstance(v,ns[s][k])
+            if not isinstance(v,ns[s][k]):
+                raise TypeError( '%s->%s expected %s is %s' % (s,k,ns[s][k],type(v)))
             # if values then check is key TODO
+    return True
 
-check(example)
+
+#n = schema("namelist.yml")
+#print n
+#print
+assert check(example) is True

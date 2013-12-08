@@ -475,3 +475,20 @@ fdda:
         values:
            - {id:   2, name: "netCDF"}
     # TODO: the following are for spectral nudging::when
+namelist_quilt:
+    description: "asynchronized I/O for MPI applications"
+    nio_tasks_per_group:
+        description: "TODO"
+        max_dom: false
+        type: int
+        values:
+            - {id: 0, name: "no quilting"}
+            - {id: 1, name: "quilting I/O"}
+        notes:
+            - "default value is 0"
+    nio_groups:
+        description: "set to higher value for nesting IO or history and restart IO"
+        max_dom: false
+        type: int
+        notes:
+            - "default value is 1"

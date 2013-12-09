@@ -78,47 +78,49 @@ def schema(ymlfilename):
     namelist = {}
 
     for document in documents:
-        # sections
-        for sname,s in document.items():
-            # parameters
+        for s,section in document.items():
             parameters = {}
-            for pname, p in s.items():
-                if not isinstance(p, dict):
+            for k,v in section.items():
+                if not isinstance(v, dict):
                     continue
-                if not ('type' in p and 'description' in p):
+                # TODO: is this check needed?
+                if not ('type' in v and 'description' in v):
                     continue
-                if p['type'] == 'boolean':
-                    parameters[pname] = bool # TODO: this will be the value, check type
-                elif p['type'] == 'int':
-                    parameters[pname] = int
-                elif p['type'] == 'float':
-                    parameters[pname] = float
-                elif p['type'] == 'string':
-                    parameters[pname] = basestring
+                if v['type'] == 'boolean':
+                    parameters[k] = bool
+                elif v['type'] == 'int':
+                    parameters[k] = int
+                elif v['type'] == 'float':
+                    parameters[k] = float
+                elif v['type'] == 'string':
+                    parameters[k] = basestring
                 else:
                     continue
-            namelist[sname] = parameters
-            #for ks,vs in sorted(v.items()):
-            #    print '\t%s_%s' % (k,ks)
-            #    for i in vs:
-            #        print '\t\t%s' % (i)
-        #print "\n",
+            namelist[s] = parameters
     return namelist
 
 def check(n):
     ns = schema("namelist.yml")
-    # sections
     for s,section in n.iteritems():
         for k,v in section.iteritems():
             log.debug('\t%s\t%s' % (k,v))
             # check type
             if not isinstance(v,ns[s][k]):
                 raise TypeError( '%s->%s expected %s is %s' % (s,k,ns[s][k],type(v)))
-            # if values then check is key TODO
+            # TODO: if values then check is key
     return True
 
+def print_namelist(n):
+    assert check(n) is True
+    for s,section in n.iteritems():
+        print "&%s" % (s)
+        for k,v in section.iteritems():
+            print '%-30s = %s' % (k,v)
+        print "/\n"
 
 #n = schema("namelist.yml")
 #print n
 #print
-assert check(example) is True
+#assert check(example) is True
+
+print_namelist(example)

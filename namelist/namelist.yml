@@ -248,7 +248,11 @@ time_control:
         type: int
         example: 1000
     # SST updating (used only with sst_update=1):
-#    auxinput4_inname                    = "wrflowinp_d<domain>" 
+    auxinput4_inname:
+        description: "name of SST input file"
+        max_dom: false
+        type: string
+        example: "wrflowinp_d<domain>" 
 #    auxinput4_interval                  = 360      ; minutes generally matches time given by interval_seconds
 #    io_form_auxinput4                   = 2        ; IO format, required in V3.2
 #    nwp_diagnostics                     = 1        ; adds 7 history-interval max diagnostic fields

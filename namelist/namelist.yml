@@ -479,6 +479,125 @@ fdda:
         values:
            - {id:   2, name: "netCDF"}
     # TODO: the following are for spectral nudging::when
+bdy_control:
+    # the next 4 are used for real-data runs
+    spec_bdy_width:
+        description: "total number of rows for specified boundary value nudging"
+        max_dom: false
+        type: int
+        example: 5
+    spec_zone:
+        description: "number of points in specified zone (spec b.c. option)"
+        max_dom: false
+        type: int
+        example: 1
+    relax_zone:
+        description: "number of points in relaxation zone (spec b.c. option)"
+        max_dom: false
+        type: int
+        example: 4
+    specified:
+        description: "specified boundary conditions (only can be used for domain 1)"
+        max_dom: true
+        type: boolean
+        example: F
+    spec_exp:
+        description: "exponential multiplier for relaxation zone ramp for specified=.t."
+        max_dom: false
+        type: int
+        example: 0
+        notes:
+            - "0.=linear ramp default, e.g. 0.33=~3*dx exp decay factor"
+    constant_bc:
+        description: "constant boundary condition used with DFI"
+        max_dom: false
+        type: boolean
+        example: F
+    periodic_x:
+        description: "periodic boundary conditions in x direction"
+        max_dom: true
+        type: boolean
+        example: F
+    symmetric_xs:
+        description: "symmetric boundary conditions at x start (west)"
+        max_dom: true
+        type: boolean
+        example: F
+    symmetric_xe:
+        description: "symmetric boundary conditions at x end (east)"
+        max_dom: true
+        type: boolean
+        example: F
+    open_xs:
+        description: "open boundary conditions at x start (west)"
+        max_dom: true
+        type: boolean
+        example: F
+    open_xe:
+        description: "open boundary conditions at x end (east)"
+        max_dom: true
+        type: boolean
+        example: F
+    periodic_y:
+        description: "periodic boundary conditions in y direction"
+        max_dom: true
+        type: boolean
+        example: F
+    symmetric_ys:
+        description: "symmetric boundary conditions at y start (south)"
+        max_dom: true
+        type: boolean
+        example: F
+    symmetric_ye:
+        description: "symmetric boundary conditions at y end (north)"
+        max_dom: true
+        type: boolean
+        example: F
+    open_ys:
+        description: "open boundary conditions at y start (south)"
+        max_dom: true
+        type: boolean
+        example: F
+    open_ye:
+        description: "open boundary conditions at y end (north)"
+        max_dom: true
+        type: boolean
+        example: F
+    nested:
+        description: "nested boundary conditions (must be used for nests)"
+        max_dom: true
+        type: boolean
+        example: F
+    polar:
+        description: "polar boundary condition"
+        max_dom: false
+        type: boolean
+        example: F
+        notes:
+            - "v=0 at polarward-most v-point"
+    perturb_bdy:
+        description: "boundary perterbations"
+        max_dom: false
+        type: int
+        values:
+            - {id:   0, name: "No boundary perturbations"}
+            - {id:   1, name: "Use SKEBS pattern for boundary perturbations"}
+            - {id:   2, name: "User other user provided pattern for boundary perturbations"}
+    euler_adv:
+        description: "conservative Eulerian passive advection (NMM only)"
+        max_dom: false
+        type: boolean
+        example: F
+    idtadt:
+        description: "fundamental timesteps between calls to Euler advection, dynamics (NMM only)"
+        max_dom: false
+        type: int
+        example: 1
+    idtadc:
+        description: "fundamental timesteps between calls to Euler advection, chemistry (NMM only)"
+        max_dom: false
+        type: int
+        example: 1
 namelist_quilt:
     description: "asynchronized I/O for MPI applications"
     nio_tasks_per_group:
